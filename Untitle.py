@@ -1,4 +1,5 @@
 import cv2
+import numpy as np
 image = cv2.imread('1.png')
 cv2.imshow(' ', image)
 final = 120
@@ -27,4 +28,17 @@ color_image = {color: cv2.cvtColor(image, getattr(cv2, f'COLOR_BGR2{color}'))
                for color in color_spaces}
 for clr in color_image:
     cv2.imshow('clr', color_image[clr])
+
+low_red = (17, 50, 110)
+how_red = (101, 140, 180)
+omly_cat = cv2.inRange(image, low_red, how_red)
+cv2.imshow('rrrrr', omly_cat)
+
+clr = (255, 0, 0)
+clr = clr[::-1]
+mask = np.zeros((image.shape[0] + 2, image.shape[1] + 2), np.uint8)
+cv2.floodFill(image, mask, (image.shape[1] // 2, 80), clr)
+
+cv2.imshow('rrrrrr', image)
+
 cv2.waitKey(0)
